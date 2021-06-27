@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+//when merging array they should be sorted
 int* merge_sorted_array(int*, int, int*, int, int*);
 void sort(int*, int)
 
