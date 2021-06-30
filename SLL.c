@@ -10,6 +10,21 @@ struct node
     struct node *next;
 };
 
+int isLoop(struct node *s)
+{
+  struct node *p, *q;
+  p = q = s;
+
+  do
+  {
+    p = p->next;
+    q = q->next;
+    q = (q->next != NULL) ? q->next : NULL;
+  }while(p && q);
+
+  return (p == q) ? 1 : 0;
+}
+
 void reverse_node(struct node **s)
 {
     struct node *p, *q, *r;
