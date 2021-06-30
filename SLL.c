@@ -10,24 +10,45 @@ struct node
     struct node *next;
 };
 
-void remove_duplicate_node(struct node **s)
+void reverse_node(struct node **s)
 {
-    struct node *i, *j;
-    i = j = *s;
-    if(!(*s))
-        printf("List is empty");
-    else
+    struct node *p, *q, *r;
+    p = *s;
+    q = r = NULL;
+
+    while(p)
     {
-      while(i)
-      {
-        while(j != search_node(*s, (*s)->info))
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+    *s = q;
+}
+
+void remove_duplicates(struct node *s)
+{
+    struct node *i, *t;
+    if(!s)
+    {
+        printf("List is empty");
+        return;
+    }
+    while(s)
+    {
+        t = s;
+        i = s->next;
+
+        while(i)
         {
-          j = j->next;
+            if(s->info == i->info)
+                t->next = i->next;
+            else
+                t = i;
+
+            i = i->next;
         }
-        delete_node(&s, j->info);
-        i = i->next;
-        j = *s;
-      }
+        s = s->next;
     }
 }
 
