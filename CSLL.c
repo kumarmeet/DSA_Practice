@@ -9,6 +9,36 @@ struct node
     struct node *next;
 };
 
+void update_node(struct node *last, int item, int update_item)
+{
+     struct node *r = last;
+
+    if(!last)
+        printf("List is empty");
+    else if(last->info == item)
+        last->info = update_item;
+    else
+    {
+        while(r != search_node(last, item))
+            r = r->next;
+        r->info = update_item;
+    }
+}
+
+int count_node(struct node *last)
+{
+  struct node *r = last->next;
+  int i = 0;
+
+  do
+  {
+    ++i;
+    r = r->next;
+  }while(r != last->next);
+
+  return i;
+}
+
 void reverse_node(struct node **last)
 {
     struct node *p, *q, *r;
@@ -85,6 +115,33 @@ void delete_node(struct node **last, int item)
         (*last)->next = p;
         *last = q;
         free(r);
+    }
+}
+
+void add_node_after(struct node *last, int item, int insert_item)
+{
+    struct node *t, *r, *n, *m;
+    n = create_node(insert_item);
+    r = last;
+
+    if(!last)
+        printf("List is empty");
+    else if(last->info == item)
+    {
+        m = last->next;
+        last->next = n;
+        n->next = m;
+    }
+    else
+    {
+        while(r != search_node(last, item))
+        {
+            r = r->next;
+            t = r;
+        }
+        m = t->next;
+        t->next = n;
+        n->next = m;
     }
 }
 
