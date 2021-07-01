@@ -46,13 +46,16 @@ void display(struct node *last)
 
 void delete_node(struct node **last, int item)
 {
-    struct node *r, *t;
-    r = (*last)->next;
+    struct node *r, *t, *p, *q;
+    p = r = (*last)->next;
+    q = *last;
 
     if(!(*last))
         return;
-    if(r->info == item)
+    if(r->info == item)//for first node
         delete_node_begining(last);
+    else if((*last)->info == item) // for last node
+        delete_node_last(last);
     else
     {
         while(search_node(r, item))
@@ -62,7 +65,8 @@ void delete_node(struct node **last, int item)
         }
 
         t->next = r->next;
-        *last = t;
+        (*last)->next = p;
+        *last = q;
         free(r);
     }
 }
