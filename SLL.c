@@ -124,6 +124,8 @@ void update_node(struct node *s, int item, int update_item)
     {
         while(r != search_node(s, item))
             r = r->next;
+        if(!search_node(s, item))//if item is not found
+            return;
         r->info = update_item;
     }
 }
