@@ -9,6 +9,23 @@ struct node
     struct node *next;
 };
 
+void reverse_node(struct node **last)
+{
+    struct node *p, *q, *r;
+    p = (*last)->next;
+    q = r = NULL;
+
+    while(p)
+    {
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+
+    *last = q;
+}
+
 struct node* search_node(struct node *last, int item)
 {
     struct node *r = last;
