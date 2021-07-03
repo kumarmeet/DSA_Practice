@@ -77,20 +77,24 @@ int stack_top(struct node *stack)
         return stack->next->info;
 }
 
-void pop(struct node **stack)
+char pop(struct node **stack)
 {
     if(!(*stack))
         printf("Underflow\n");
     else if((*stack)->next == *stack)
     {
+        char ch = (*stack)->info;
         free(*stack);
         *stack = NULL;
+        return ch;
     }
     else
     {
         struct node *r = (*stack)->next;
+        char ch = r->info;
         (*stack)->next = r->next;
         free(r);
+        return ch;
     }
 }
 
