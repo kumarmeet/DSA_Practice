@@ -44,6 +44,18 @@ struct node* deque(struct node **s)
     return x;
 }
 
+int count_tree_nodes(struct root *p)
+{
+  int x, y;
+  if(p)
+  {
+    x = count(p->lchild);
+    y = count(p->rchild);
+    return x + y + 1;
+  }
+  return 0;
+}
+
 void tree(struct node **q, struct root **r, int item)
 {
     struct root *p, *t;
