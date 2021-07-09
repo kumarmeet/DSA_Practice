@@ -39,6 +39,69 @@ node* binary_search(node *r, int key)
     return NULL;
 }
 
+int height(node *r)
+{
+    int x, y;
+    if(!r)
+        return 0;
+    x = height(r->lchild);
+    y = height(r->rchild);
+    return x > y ? x + 1 : y + 1;
+}
+
+node* in_pre(node *r) // go for right most child on left sub tree
+{
+    while(r && r->rchild)
+        r = r->rchild;
+
+    return r;
+}
+
+node* in_succ(node *r) // go for left most child on right sub tree
+{
+    while(r && r->lchild)
+        r = r->lchild;
+
+    return r;
+}
+
+node* delete_node(node *r, int key)
+{
+    node *q, *p;
+    p = r;
+    if(!p)
+        return;
+    //lchild and rchild has null then simply delete that node
+    if(p->lchild == NULL && p->rchild == NULL)
+    {
+        if(r == p) // if only root node
+            r = NULL;
+        free(r);
+        return NULL;
+    }
+    if(key < p->key)
+        p->lchild = delete_node(p->lchild, key);
+    else if(key > p->key)
+        p->rchild = delete_node(p->rchild, key);
+    else
+    {
+        if(height(p->lchild) > height(p->rchild))
+        {
+            q = in_pre(p->lchild);
+            p->key = q->key;
+            p->lchild = delete_node(p->lchild, q->key);
+        }
+        else if(height(p->lchild) < height(p->rchild))
+        {
+            q = in_succ(p->rchild);
+            p->key = q->key;
+            p->rchild = delete_node(p->rchild, q->key);
+        }
+    }
+
+    return p;
+}
+
 node* insert_recursion(node *r, int key)
 {
     node *t = NULL;
