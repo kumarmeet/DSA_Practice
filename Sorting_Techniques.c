@@ -26,7 +26,7 @@ void bubble_sort(int *arr, int size)
 
 //Insertion Sort
 //Designed for Linked List
-//Adaptive and
+//Adaptive and stable
 ///time complexity min O(n) max O(n^2)
 void insertion_sort(int *arr, int size)
 {
